@@ -2,13 +2,13 @@
     font-family: "Lora";
     src: url(font/Lora%20regular.ttf) format("truetype");
 }
+
 @font-face {
     font-family: "Oswald";
     src: url(font/Oswald%20regular.ttf) format("truetype");
 }
 
 .column {
-    width: 50%;
     white-space: normal;
     display: inline-block;
     vertical-align: top;
@@ -16,6 +16,11 @@
 
 .container {
     white-space: nowrap;
+    display: flex;
+}
+
+.container .column:first-of-type {
+  flex: 1;
 }
 
 fieldset {
@@ -85,9 +90,11 @@ fieldset {
   flex-grow: 1;
   text-align: center;
 }
+
 .leftalign {
   text-align: left;
 }
+
 .inline-block {
   display: inline-block;
 }

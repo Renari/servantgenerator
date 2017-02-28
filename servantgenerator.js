@@ -1,12 +1,34 @@
+$(document).ready(init);
+var canvasContainer;
+
+function init() {
+  canvasContainer = new canvasObject();
+  registerEventHandlers();
+}
+
+function canvasObject() {
+  this.canvas = new fabric.StaticCanvas('canvas', {
+    width: 800,
+    height: 600,
+    backgroundColor: '#aa6c43'
+  });
+  this.backgroundImage = null;
+  this.masterName = null;
+  this.servantName = null;
+  this.servantSex = null;
+  this.servantHeightWeight = null;
+  this.servantAlignment = null;
+}
+
 var servant = {
   //keys for accessing servantData
   servantClass:'servantClass',
   masterName:'masterName',
-  servantName:'servantName',
-  servantSex:'servantSex',
-  servantData : {
-    servantClass:null
-  },
+  name: 'name',
+  sex: 'sex',
+  heightWeight: 'heightWeight',
+  alignment: 'alignment',
+  servantData : {},
   getServantData : function(key) {
     return this.servantData[key];
   },
@@ -15,6 +37,7 @@ var servant = {
     draw(key);
   }
 }
+
 var informationTextStyle = {
   fontSize: 14,
   fontFamily: 'Oswald',
@@ -25,28 +48,14 @@ var informationTextStyle = {
   originX: 'center',
   originY: 'center'
 }
-var backgroundImage;
-var masterName;
-var servantName;
-var servantSex;
-var canvas;
-
-$(document).ready(init);
-
-function init() {
-  canvas = new fabric.StaticCanvas('canvas', {
-    width: 800,
-    height: 600,
-    backgroundColor: '#aa6c43'
-  });
-  registerEventHandlers();
-}
 
 function registerEventHandlers() {
   $('#class input').click(changeServantClass);
   $('#name').keyup(changeMasterName);
   $('#servant').keyup(changeServantName);
   $('#sex input').click(changeServantSex);
+  $('#heightweight').keyup(changeServantHeightWeight);
+  $('#alignment').change(changeServantAlignment);
 }
 
 function changeServantClass() {
@@ -58,63 +67,66 @@ function changeMasterName() {
 }
 
 function changeServantName() {
-  servant.setServantData(servant.servantName, $(this).val());
+  servant.setServantData(servant.name, $(this).val());
 }
 
 function changeServantSex() {
-  servant.setServantData(servant.servantSex, $(this).val());
+  servant.setServantData(servant.sex, $(this).val());
+}
+
+function changeServantHeightWeight() {
+  servant.setServantData(servant.heightWeight, $(this).val());
+}
+
+function changeServantAlignment() {
+  servant.setServantData(servant.alignment, $(this).val());
 }
 
 function draw(type) {
   switch (type) {
     case servant.servantClass: //background image
       var background = 'images/backgrounds/' + servant.getServantData(servant.servantClass) + '.png';
-      if(backgroundImage == null) {
+      if (canvasContainer.backgroundImage == null) {
         fabric.Image.fromURL(background, function(img){
-          backgroundImage = img;
-          canvas.add(img);
-          canvas.sendToBack(img);
+          canvasContainer.backgroundImage = img;
+          canvasContainer.canvas.sendToBack(img);
         });
       }
       else {
-        backgroundImage.setSrc(background, renderCanvas);
+        canvasContainer.backgroundImage.setSrc(background, renderCanvas);
       }
       break;
     case servant.masterName:
       var master = servant.getServantData(servant.masterName);
-      if (masterName == null) {
-        masterName = new fabric.Text(master, informationTextStyle);
-        masterName.top = 128;
-        canvas.add(masterName);
-      }
-      else {
-        masterName.setText(master);
-        renderCanvas();
-      }
+      setTextObject('masterName', master, 128);
       break;
-    case servant.servantName:
-      var name = servant.getServantData(servant.servantName);
-      if (servantName == null) {
-        servantName = new fabric.Text(name, informationTextStyle);
-        servantName.top = 164;
-        canvas.add(servantName);
-      }
-      else {
-        servantName.setText(name);
-        renderCanvas();
-      }
+    case servant.name:
+      var name = servant.getServantData(servant.name);
+      setTextObject('servantName', name, 164);
       break;
-    case servant.servantSex:
-      var sex = capitalize(servant.getServantData(servant.servantSex));
-      if (servantSex == null) {
-        servantSex = new fabric.Text(sex, informationTextStyle);
-        servantSex.top = 200;
-        canvas.add(servantSex);
-      }
-      else {
-        servantSex.setText(sex);
-        renderCanvas();
-      }
+    case servant.sex:
+      var sex = capitalize(servant.getServantData(servant.sex));
+      setTextObject('servantSex', sex, 200);
+      break;
+    case servant.heightWeight:
+      setTextObject('servantHeightWeight', servant.getServantData(servant.heightWeight), 236);
+      break;
+    case servant.alignment:
+      setTextObject('servantAlignment', servant.getServantData(servant.alignment), 272);
+      break;
+  }
+}
+
+function setTextObject(key, value, top) {
+  if (canvasContainer[key] == null) {
+    var text = new fabric.Text(value, informationTextStyle);
+    text.top = top;
+    canvasContainer[key] = text;
+    canvasContainer.canvas.add(text);
+  }
+  else {
+    canvasContainer[key].setText(value);
+    renderCanvas();
   }
 }
 
@@ -123,5 +135,5 @@ function capitalize(string) {
 }
 
 function renderCanvas() {
-  canvas.renderAll();
+  canvasContainer.canvas.renderAll();
 }
