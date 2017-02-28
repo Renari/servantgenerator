@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="fabric.min.js"></script>
+  <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="servantgenerator.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Fate Servant Generator</title>
+</head>
+<body>
+  <div class="container">
+    <div class="column">
+      <fieldset id="class">
+        <ul>
+          <li>
+            <input type="radio" id="saber" value="saber" name="class">
+            <label for="saber"><img src="images/classicons/saber.png" alt="Saber"></label>
+          </li>
+          <li>
+            <input type="radio" id="archer" value="archer" name="class">
+            <label for="archer"><img src="images/classicons/archer.png" alt="Archer"></label>
+          </li>
+          <li>
+            <input type="radio" id="lancer" value="lancer" name="class">
+            <label for="lancer"><img src="images/classicons/lancer.png" alt="Lancer"></label>
+          </li>
+          <li>
+            <input type="radio" id="caster" value="caster" name="class">
+            <label for="caster"><img src="images/classicons/caster.png" alt="Caster"></label>
+          </li>
+          <li>
+            <input type="radio" id="rider" value="rider" name="class">
+            <label for="rider"><img src="images/classicons/rider.png" alt="Rider"></label>
+          </li>
+          <br>
+          <li>
+            <input type="radio" id="assassin" value="assassin" name="class">
+            <label for="assassin"><img src="images/classicons/assassin.png" alt="Assassin"></label>
+          </li>
+          <li>
+            <input type="radio" id="berserker" value="berserker" name="class">
+            <label for="berserker"><img src="images/classicons/berserker.png" alt="Berserker"></label>
+          </li>
+          <li>
+            <input type="radio" id="ruler" value="ruler" name="class">
+            <label for="ruler"><img src="images/classicons/ruler.png" alt="Ruler"></label>
+          </li>
+          <li>
+            <input type="radio" id="avenger" value="avenger" name="class">
+            <label for="avenger"><img src="images/classicons/avenger.png" alt="Avenger"></label>
+          </li>
+          <li>
+            <input type="radio" id="shielder" value="shielder" name="class">
+            <label for="shielder"><img src="images/classicons/shielder.png" alt="Shielder"></label>
+          </li>
+        </ul>
+      </fieldset>
+      <div class="flex-row">
+        <div>
+          <span class="leftalign inline-block">
+            <label>Master Name:</label>
+            <br>
+            <input id="name" type="text">
+            <fieldset id="sex">
+              Sex:
+              <label for="male">
+                <input type="radio" id="male" value="male" name="sex">
+                Male
+              </label>
+              <label for="female">
+                <input type="radio" id="female" value="female" name="sex">
+                Female
+              </label>
+              <label for="other">
+                <input type="radio" id="other" value="other" name="sex">
+                Other
+              </label>
+            </fieldset>
+          </span>
+        </div>
+        <div>
+          <span class="leftalign inline-block">
+            <label>Servant Name:</label>
+            <br>
+            <input id="servant" type="text">
+            <br>
+            <label>Servant Name:</label>
+            <br>
+            <input id="servant" type="text">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <canvas id="canvas"></canvas>
+    </div>
+  </div>
+</body>
+</html>
