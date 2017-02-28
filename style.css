@@ -75,7 +75,7 @@ fieldset {
 }
 
 #sex label {
-  display: block;
+  margin: 0;
 }
 
 #sex {
@@ -94,4 +94,9 @@ fieldset {
 .formcolumn {
   text-align: left;
   display: inline-block;
+}
+
+.formcolumn label{
+  display: block;
+  margin-top: 5px;
 }
