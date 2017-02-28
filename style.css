@@ -87,14 +87,11 @@ fieldset {
   flex-direction: row;
 }
 .flex-row > div {
-  flex-grow: 1;
+  flex: 1;
   text-align: center;
 }
 
-.leftalign {
+.formcolumn {
   text-align: left;
-}
-
-.inline-block {
   display: inline-block;
 }
