@@ -153,13 +153,17 @@ function draw(type) {
       setTextObject('servantAlignment', servant.getServantData(servant.alignment), 272);
       break;
     case servant.picture:
+      var servantPicture = servant.getServantData(servant.picture);
       if(canvasContainer.servantPicture == null) {
-        fabric.Image.fromURL(servant.getServantData(servant.picture), function (img){
+        fabric.Image.fromURL(servantPicture, function (img){
           canvasContainer.servantPicture = img;
           img.left = 555;
           img.top = 52;
           canvasContainer.canvas.add(img);
         });
+      }
+      else {
+        canvasContainer.servantPicture.setSrc(servantPicture, renderCanvas);
       }
       break;
   }
