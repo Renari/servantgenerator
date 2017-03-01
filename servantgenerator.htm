@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script type="text/javascript" src="fabric.min.js"></script>
-  <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
-  <script type="text/javascript" src="servantgenerator.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="fabric.min.js"></script>
+  <script src="jquery-3.1.1.min.js"></script>
+  <script src="cropper.min.js"></script>
+  <script src="jquery.popupoverlay.js"></script>
+  <script src="servantgenerator.js"></script>
+  <link rel="stylesheet" href="cropper.min.css">
+  <link rel="stylesheet" href="style.css">
   <title>Fate Servant Generator</title>
 </head>
 <body>
@@ -75,6 +78,10 @@
                 Other
               </label>
             </fieldset>
+            <div class="filebutton">
+              <input type="file" id="servantpicture">
+              <label for="servantpicture">Servant Picture</label>
+            </div>
           </div>
         </div>
         <div>
@@ -105,6 +112,10 @@
     <div class="column">
       <canvas id="canvas"></canvas>
     </div>
+  </div>
+  <div id="imagecropmodal">
+    <img id="cropper">
+    <button id="crop">Crop</button>
   </div>
 </body>
 </html>

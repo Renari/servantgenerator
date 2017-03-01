@@ -3,6 +3,9 @@ var canvasContainer;
 
 function init() {
   canvasContainer = new canvasObject();
+  $('#imagecropmodal').popup({
+    blur: false
+  });
   registerEventHandlers();
 }
 
@@ -18,6 +21,7 @@ function canvasObject() {
   this.servantSex = null;
   this.servantHeightWeight = null;
   this.servantAlignment = null;
+  this.servantPicture = null;
 }
 
 var servant = {
@@ -28,6 +32,7 @@ var servant = {
   sex: 'sex',
   heightWeight: 'heightWeight',
   alignment: 'alignment',
+  picture: 'picture',
   servantData : {},
   getServantData : function(key) {
     return this.servantData[key];
@@ -56,6 +61,39 @@ function registerEventHandlers() {
   $('#sex input').click(changeServantSex);
   $('#heightweight').keyup(changeServantHeightWeight);
   $('#alignment').change(changeServantAlignment);
+  $('#servantpicture').change(showCropModal);
+  $('#crop').click(cropImage);
+}
+
+function showCropModal(e) {
+  var file = e.target.files[0];
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = function(e) {
+    $('#cropper').attr('src', reader.result);
+    $('#imagecropmodal').popup('show');
+    $('#cropper').cropper({
+      aspectRatio: 1,
+      viewMode: 1,
+      responsive: true,
+      background: false
+    });
+  }
+}
+
+function cropImage() {
+  changeServantPicture($('#cropper')
+  .cropper(
+    "getCroppedCanvas", {
+      width: 216,
+      height: 216
+    }).toDataURL());
+  $('#imagecropmodal').popup('hide');
+  $('#cropper').cropper('destroy');
+}
+
+function changeServantPicture(img) {
+  servant.setServantData(servant.picture, img);
 }
 
 function changeServantClass() {
@@ -113,6 +151,16 @@ function draw(type) {
       break;
     case servant.alignment:
       setTextObject('servantAlignment', servant.getServantData(servant.alignment), 272);
+      break;
+    case servant.picture:
+      if(canvasContainer.servantPicture == null) {
+        fabric.Image.fromURL(servant.getServantData(servant.picture), function (img){
+          canvasContainer.servantPicture = img;
+          img.left = 555;
+          img.top = 52;
+          canvasContainer.canvas.add(img);
+        });
+      }
       break;
   }
 }
