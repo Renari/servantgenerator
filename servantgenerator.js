@@ -78,6 +78,7 @@ function showCropModal(e) {
       responsive: true,
       background: false
     });
+    $('#servantpicture').val(null);
   }
 }
 
