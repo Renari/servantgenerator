@@ -7,6 +7,10 @@ function init() {
     blur: false
   });
   registerEventHandlers();
+  //disable dragging of class icons
+  $('#class img').on('dragstart', function(e){
+    e.preventDefault();
+  });
 }
 
 function canvasObject() {
